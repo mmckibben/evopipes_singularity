@@ -6,5 +6,4 @@ RUN apt-get update && apt-get install -y \
 	bioperl \
 	ncbi-blast+ 
 COPY * /bin/
-WORKDIR $(pwd)
 
