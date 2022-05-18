@@ -18,7 +18,7 @@ $CPU = "$ARGV[2]";
 
 open NAME or die "No file $NAME\n";
 
-system ("makeblastdb -in /home/$PROT -dbtype prot");
+system ("makeblastdb -in $PROT -dbtype prot");
 
 LOOP1: while (<NAME>) {
 	chomp $_;
@@ -72,7 +72,7 @@ LOOP1: while (<NAME>) {
         #Make blast db from the unique sequences but then blast unique sequences against the protein database. Parse blast results. 
         system ("cd DupPipe/$taxon/; makeblastdb -in unique_seqs.no_dups.list.no_recip_dups.no_dups.clean.parsed.duppairs.out.allvsall.$taxon -dbtype nucl");
         print "\n\n\tLong blasting step at line 69\n\n";
-        system ("cd DupPipe/$taxon/; blastx -num_threads $CPU -evalue 0.01 -max_target_seqs 50 -db /home/$PROT -query unique_seqs.no_dups.list.no_recip_dups.no_dups.clean.parsed.duppairs.out.allvsall.$taxon -out out.blastx_$taxon");
+        system ("cd DupPipe/$taxon/; blastx -num_threads $CPU -evalue 0.01 -max_target_seqs 50 -db ../../$PROT -query unique_seqs.no_dups.list.no_recip_dups.no_dups.clean.parsed.duppairs.out.allvsall.$taxon -out out.blastx_$taxon");
         system ("cd DupPipe/$taxon/; blastxparser.pl out.blastx_$taxon"); # output is: blastxparsed.out.blastx_$taxon
         system ("cd DupPipe/$taxon/; delete_extra_infoblastx.pl blastxparsed.out.blastx_$taxon"); # output is: clean.blastxparsed.out.blastx_$taxon
         system ("cd DupPipe/$taxon/; unique_hits_by_column.pl clean.blastxparsed.out.blastx_$taxon"); # output is: unique_col0.clean.blastxparsed.out.blastx_$taxon
@@ -86,7 +86,7 @@ LOOP1: while (<NAME>) {
         system ("cd DupPipe/$taxon/; dna_id_list.pl clean.no_te.unique_col0.clean.blastxparsed.out.blastx_$taxon");
         system ("cd DupPipe/$taxon/; prot_id_list.pl clean.no_te.unique_col0.clean.blastxparsed.out.blastx_$taxon");
         system ("cd DupPipe/$taxon/; dna_fasta.pl dna_ids0.clean.no_te.unique_col0.clean.blastxparsed.out.blastx_$taxon no_cl.$taxon");
-        system ("cd DupPipe/$taxon/; prot_fasta2.pl prot_ids1.clean.no_te.unique_col0.clean.blastxparsed.out.blastx_$taxon /home/$PROT");
+        system ("cd DupPipe/$taxon/; prot_fasta2.pl prot_ids1.clean.no_te.unique_col0.clean.blastxparsed.out.blastx_$taxon ../../$PROT");
 
         #Make list of gene names
         print "\n\n\tMaking list of gene names at line 87\n";
