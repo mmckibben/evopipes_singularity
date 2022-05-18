@@ -1,3 +1,5 @@
+#THIS IS A TEST REPOSITORY FROM https://gitlab.com/barker-lab/EvoPipes . This instance is to test the script on HPC systems.
+
 # EvoPipes Pipeline Collection
 
 This repository contains the scripts for the core EvoPipes pipelines: DupPipe, OrthoPipe, and TransPipe. Also included is a link to a docker image that contains a working version of these pipelines and is the recommended way for most people to use the tools. 
