@@ -7,7 +7,3 @@ RUN apt-get update && apt-get install -y \
 	ncbi-blast+ 
 COPY * /bin/
 workdir /home/
-
-ENV LANG pl_PL.UTF-8
-ENV LANGUAGE pl_PL
-ENV LC_ALL pl_PL.UTF-8
