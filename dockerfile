@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
 	bioperl \
 	ncbi-blast+ 
 	
-ENV LC_ALL C
+ENV LC_ALL en_US.UTF-8
 
 COPY * /bin/
 workdir /home/
