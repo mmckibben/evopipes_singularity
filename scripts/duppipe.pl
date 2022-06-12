@@ -139,46 +139,46 @@ LOOP1: while (<NAME>) {
 		#system ("tar -czvf $taxon.tgz Programs/");
 		#system ("mv $taxon.tgz Data/$taxon");
 		
-		#Remove all intermediate files generated
-		print "\n\tDeleting intermediate files!\n\n";
-				system ("rm DupPipe/$taxon/dna_names");
-			system ("cd DupPipe/$taxon/; echo *.aln | xargs rm");
-			system ("rm DupPipe/$taxon/DNA*");
-			system ("cd DupPipe/$taxon/; echo pamlout* | xargs rm");
-			system ("cd DupPipe/$taxon/; echo *.t | xargs rm");
-			system ("cd DupPipe/$taxon/; echo *.dN | xargs rm");
-			system ("cd DupPipe/$taxon/; echo *.dS | xargs rm");
-			system ("cd DupPipe/$taxon/; echo *.phy | xargs rm");
-			system ("rm DupPipe/$taxon/ksvalues");
-			system ("rm DupPipe/$taxon/dnapairnumber");
-			system ("rm DupPipe/$taxon/no_zero_ks");
-			system ("rm DupPipe/$taxon/final_ks_values");
-			system ("cd DupPipe/$taxon/; echo *.fasta | xargs rm");
-			system ("rm DupPipe/$taxon/dirtycontig");
-			system ("cd DupPipe/$taxon/; echo *.fa | xargs rm");
-			system ("rm DupPipe/$taxon/genewiseout");
-			system ("rm DupPipe/$taxon/nostopcontig");
-			system ("rm DupPipe/$taxon/nucseq");
-			system ("rm DupPipe/$taxon/protseq");
-	#	system ("echo *.unigenes | xargs rm");  #ALWAYS LEAVE THIS COMMENTED OUT
-				system ("rm DupPipe/$taxon/*.allvsall.$taxon");
-			system ("rm DupPipe/$taxon/unique_seqs*");
-			system ("rm DupPipe/$taxon/no_cl.*");
-			system ("rm DupPipe/$taxon/out.ath_*");
-			system ("rm DupPipe/$taxon/*.blastx_$taxon");
-			system ("rm DupPipe/$taxon/kavalues");
-			system ("rm DupPipe/$taxon/out.*");
-			system ("rm DupPipe/$taxon/clean.*");
-			system ("rm DupPipe/$taxon/parsed.out.*");
-			system ("rm DupPipe/$taxon/tab.unique*");
-			system ("rm DupPipe/$taxon/unique_col0*");
-			system ("rm DupPipe/$taxon/*fasta.clean*");
-			system ("rm DupPipe/$taxon/*.seqs");
-			system ("rm DupPipe/$taxon/annotations");
-			system ("rm DupPipe/$taxon/ath_annotations");
-			system ("rm DupPipe/$taxon/codeml.ctl");
-			system ("rm DupPipe/$taxon/rst*");
-			system ("rm DupPipe/$taxon/rub");
+# 		#Remove all intermediate files generated
+# 		print "\n\tDeleting intermediate files!\n\n";
+# 				system ("rm DupPipe/$taxon/dna_names");
+# 			system ("cd DupPipe/$taxon/; echo *.aln | xargs rm");
+# 			system ("rm DupPipe/$taxon/DNA*");
+# 			system ("cd DupPipe/$taxon/; echo pamlout* | xargs rm");
+# 			system ("cd DupPipe/$taxon/; echo *.t | xargs rm");
+# 			system ("cd DupPipe/$taxon/; echo *.dN | xargs rm");
+# 			system ("cd DupPipe/$taxon/; echo *.dS | xargs rm");
+# 			system ("cd DupPipe/$taxon/; echo *.phy | xargs rm");
+# 			system ("rm DupPipe/$taxon/ksvalues");
+# 			system ("rm DupPipe/$taxon/dnapairnumber");
+# 			system ("rm DupPipe/$taxon/no_zero_ks");
+# 			system ("rm DupPipe/$taxon/final_ks_values");
+# 			system ("cd DupPipe/$taxon/; echo *.fasta | xargs rm");
+# 			system ("rm DupPipe/$taxon/dirtycontig");
+# 			system ("cd DupPipe/$taxon/; echo *.fa | xargs rm");
+# 			system ("rm DupPipe/$taxon/genewiseout");
+# 			system ("rm DupPipe/$taxon/nostopcontig");
+# 			system ("rm DupPipe/$taxon/nucseq");
+# 			system ("rm DupPipe/$taxon/protseq");
+# 	#	system ("echo *.unigenes | xargs rm");  #ALWAYS LEAVE THIS COMMENTED OUT
+# 				system ("rm DupPipe/$taxon/*.allvsall.$taxon");
+# 			system ("rm DupPipe/$taxon/unique_seqs*");
+# 			system ("rm DupPipe/$taxon/no_cl.*");
+# 			system ("rm DupPipe/$taxon/out.ath_*");
+# 			system ("rm DupPipe/$taxon/*.blastx_$taxon");
+# 			system ("rm DupPipe/$taxon/kavalues");
+# 			system ("rm DupPipe/$taxon/out.*");
+# 			system ("rm DupPipe/$taxon/clean.*");
+# 			system ("rm DupPipe/$taxon/parsed.out.*");
+# 			system ("rm DupPipe/$taxon/tab.unique*");
+# 			system ("rm DupPipe/$taxon/unique_col0*");
+# 			system ("rm DupPipe/$taxon/*fasta.clean*");
+# 			system ("rm DupPipe/$taxon/*.seqs");
+# 			system ("rm DupPipe/$taxon/annotations");
+# 			system ("rm DupPipe/$taxon/ath_annotations");
+# 			system ("rm DupPipe/$taxon/codeml.ctl");
+# 			system ("rm DupPipe/$taxon/rst*");
+# 			system ("rm DupPipe/$taxon/rub");
 	}
 	
 	else{
