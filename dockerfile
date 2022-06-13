@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y \
 RUN export LC_ALL=en_US.UTF-8
 RUN export LANG=en_US.UTF-8
 RUN locale-gen en_US.UTF-8
-RUN unzip scripts/Atha.zip -d scripts/
+RUN cd /scripts && unzip Atha.zip && rm Atha.zip
+RUN cd ../
 
 COPY * /bin/
 workdir /home/
