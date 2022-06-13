@@ -13,5 +13,5 @@ RUN export LANG=en_US.UTF-8
 RUN locale-gen en_US.UTF-8
 
 COPY * /bin/
-RUN cd /bin && unzip Atha.zip && rm Atha.zip && CD ../
+RUN cd /bin && unzip Atha.zip && rm Atha.zip && cd ../
 workdir /home/
