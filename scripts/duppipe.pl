@@ -94,6 +94,7 @@ LOOP1: while (<NAME>) {
 
 		#Genewise - get DNA and protein sequences for predicted proteins
         print "\n\n\tRunning Genewise\n\n";
+	print "NOTE!!! YOU WILL ALWAYS GET A "FATAL ERROR" ON THE FIRST ONE HERE!!";
         system ("cd DupPipe/$taxon/; iterativegenewise.pl prot_fasta.prot_ids1.clean.no_te.unique_col0.clean.blastxparsed.out.blastx_$taxon dna_fasta.dna_ids0.clean.no_te.unique_col0.clean.blastxparsed.out.blastx_$taxon");
         # system ("cp Programs/wise2.2.0/src/bin/genewise_dnas.fasta DupPipe/$taxon/Data");
         # system ("cp Programs/wise2.2.0/src/bin/genewise_prots.fasta DupPipe/$taxon/Data");
