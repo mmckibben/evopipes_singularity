@@ -1,4 +1,4 @@
-#THIS IS A TEST REPOSITORY FROM https://gitlab.com/barker-lab/EvoPipes . This instance is to test the script on HPC systems.
+#THIS IS A TEST REPOSITORY FROM https://gitlab.com/barker-lab/EvoPipes . This instance is intended to be used on HPC systems and singularity. Please refer to source gitlab page for information about the original pipeline. 
 
 # EvoPipes Pipeline Collection
 
