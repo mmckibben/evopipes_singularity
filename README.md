@@ -1,5 +1,8 @@
 #THIS IS A TEST REPOSITORY FROM https://gitlab.com/barker-lab/EvoPipes . This instance is intended to be used on HPC systems and singularity. Please refer to source gitlab page for information about the original pipeline. 
 
+Singularity users can use: singularity build evopipes docker:mmckibben/evopipes_test
+Then execute using: singularity run evopipes "evopipe command"
+
 # EvoPipes Pipeline Collection
 
 This repository contains the scripts for the core EvoPipes pipelines: DupPipe, OrthoPipe, and TransPipe. Also included is a link to a docker image that contains a working version of these pipelines and is the recommended way for most people to use the tools. 
