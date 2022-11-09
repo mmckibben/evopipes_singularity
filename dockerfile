@@ -17,3 +17,4 @@ COPY * /bin/
 RUN cd /bin && unzip Atha.zip && rm Atha.zip && mv Atha.fa ath.fasta && makeblastdb -in ath.fasta -dbtype nucl
 
 workdir /home/
+
