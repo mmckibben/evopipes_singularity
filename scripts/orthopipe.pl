@@ -1,4 +1,6 @@
-#!/usr/bin/per#################
+#!/usr/bin/perl
+
+#################
 # Barker lab, University of Arizona
 # September 2020
 #
@@ -30,8 +32,6 @@ LOOP1: while (<NAME>) {
         my $times = $lineArr[@lineArr-1];
         my @timeArr = split /,/, $times;
         my $load = $timeArr[0] + $CPU;
-	print $load," is the current load plus new CPU request\n\n";
-
 
 		print "Starting pipeline for $row_of_names!\n\n";
 
@@ -114,7 +114,6 @@ system ("cd OrthoPipe/$all_taxa; blastxparser.pl out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; delete_extra_infoblastx.pl blastxparsed.out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; unique_hits_by_column.pl clean.blastxparsed.out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; tabs.pl unique_col0.clean.blastxparsed.out.blastx_$all_taxa");
-print 'NOTE!!! YOU WILL ALWAYS GET A "FATAL ERROR" ON THE FIRST ONE HERE!!';
 system ("cd OrthoPipe/$all_taxa; delete_extra_infogenewise.pl unique_col0.clean.blastxparsed.out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; dna_id_list.pl clean.unique_col0.clean.blastxparsed.out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; prot_id_list.pl clean.unique_col0.clean.blastxparsed.out.blastx_$all_taxa");
@@ -181,7 +180,5 @@ system ("cp OrthoPipe/$all_taxa/codeml_output$all_taxa OrthoPipe/$all_taxa/Outpu
 		system ("rm OrthoPipe/$all_taxa/rst*");
 		system ("rm OrthoPipe/$all_taxa/rub");
 	}
-
-
 
 }
