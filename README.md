@@ -1,4 +1,4 @@
-#THIS IS A TEST REPOSITORY FROM https://gitlab.com/barker-lab/EvoPipes . This instance is intended to be used on HPC systems and singularity. Please refer to source gitlab page for information about the original pipeline. 
+#THIS IS A VERSION OF REPOSITORY FROM https://gitlab.com/barker-lab/EvoPipes MADE FOR SINGULARITY. This instance is intended to be used on HPC systems Please refer to source gitlab page for information about the original pipeline. 
 
 Singularity users can use: singularity build evopipes docker:mmckibben/evopipes_test
 Then execute using: singularity run evopipes "evopipe command"
