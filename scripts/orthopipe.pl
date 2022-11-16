@@ -1,12 +1,10 @@
-#!/usr/bin/perl
-
-#################
+#!/usr/bin/per#################
 # Barker lab, University of Arizona
 # September 2020
 #
 # To run OrthoPipe: put the datafile(s) to run, a file with a list of their names, and a protein file for translations wherever in your folder you like.
 # Each file should be named in the format "XYZ.unigenes" and the <names_file> file should contain the three letter codes for each species you want to analyze on each line.
-# For example: XYZ ABC DOG  would identify reciprical best BLAST-hit orthologs for these three taxa. 
+# For example: XYZ ABC DOG  would identify reciprical best BLAST-hit orthologs for these three taxa.
 # To execute the pipeline, enter at the command line prompt: perl orthopipe.pl <names_file> <protein_file> <CPU_Number>
 #
 #################
@@ -33,10 +31,10 @@ LOOP1: while (<NAME>) {
         my @timeArr = split /,/, $times;
         my $load = $timeArr[0] + $CPU;
 	print $load," is the current load plus new CPU request\n\n";
-       
-	if($load < 48) {
+
+
 		print "Starting pipeline for $row_of_names!\n\n";
-		
+
 		#Put all of your pipeline code in here;
 	@compare = ();
 
@@ -62,7 +60,7 @@ LOOP1: while (<NAME>) {
 		push @taxa, $_;
 		$last = $_;
 	}
-}		
+}
 
 
 		system ("mkdir OrthoPipe/");
@@ -87,21 +85,21 @@ foreach $taxon (@taxa){  #format databases for blast
 
 	system ("cd OrthoPipe/$all_taxa; clcleaner2.pl $taxon.unigenes $taxon");
 
-	system ("cd OrthoPipe/$all_taxa/; min_fasta_length.pl no_cl.$taxon.unigenes 300"); # output is: no_cl.$all_taxa.minlength$number.  Keeps only sequences longer than 300bp. 
-	system ("cd OrthoPipe/$all_taxa/; makeblastdb -in no_cl.$taxon.unigenes.minlength300 -dbtype nucl");	
+	system ("cd OrthoPipe/$all_taxa/; min_fasta_length.pl no_cl.$taxon.unigenes 300"); # output is: no_cl.$all_taxa.minlength$number.  Keeps only sequences longer than 300bp.
+	system ("cd OrthoPipe/$all_taxa/; makeblastdb -in no_cl.$taxon.unigenes.minlength300 -dbtype nucl");
 }
 
 
 
-for ($i = 0; $i < $taxa_num; $i++) {  
+for ($i = 0; $i < $taxa_num; $i++) {
 		for ($j = 0; $j < $taxa_num; $j++){
 			if ($i == $j) {next;}
 			if (-e "OrthoPipe/hit_parser/parsed.hits.$taxa[$i]vs$taxa[$j]") {
-				system ("cp OrthoPipe/hit_parser/parsed.hits.$taxa[$i]vs$taxa[$j] OrthoPipe/$all_taxa/");			
+				system ("cp OrthoPipe/hit_parser/parsed.hits.$taxa[$i]vs$taxa[$j] OrthoPipe/$all_taxa/");
 				next;
 			}
 			else { # otherwise, blast and then parse results
-				system ("cd OrthoPipe/$all_taxa; blastn -task dc-megablast -template_length 16 -template_type coding_and_optimal -word_size 11 -num_threads $CPU -evalue 0.1 -perc_identity 50 -db no_cl.$taxa[$j].unigenes.minlength300 -query no_cl.$taxa[$i].unigenes.minlength300 -out out.allvsall.$taxa[$i]vs$taxa[$j]"); 
+				system ("cd OrthoPipe/$all_taxa; blastn -task dc-megablast -template_length 16 -template_type coding_and_optimal -word_size 11 -num_threads $CPU -evalue 0.1 -perc_identity 50 -db no_cl.$taxa[$j].unigenes.minlength300 -query no_cl.$taxa[$i].unigenes.minlength300 -out out.allvsall.$taxa[$i]vs$taxa[$j]");
 				system ("cd OrthoPipe/$all_taxa; blasthitparse2.pl out.allvsall.$taxa[$i]vs$taxa[$j] $taxa[$i]vs$taxa[$j]");
 
 			}
@@ -109,7 +107,7 @@ for ($i = 0; $i < $taxa_num; $i++) {
 	}
 system ("cd OrthoPipe/$all_taxa; multiple_orthologs_stringent.pl @taxa > orthologs.$all_taxa");
 system ("cd OrthoPipe/$all_taxa; list_ort.pl orthologs.$all_taxa $taxa_num");
-system ("cd OrthoPipe/$all_taxa; fasta_from_list_ort.pl list.orthologs.$all_taxa @taxa"); 
+system ("cd OrthoPipe/$all_taxa; fasta_from_list_ort.pl list.orthologs.$all_taxa @taxa");
 system ("cd OrthoPipe/$all_taxa; makeblastdb -in unique_seqs.list.orthologs.$all_taxa -dbtype nucl");
 system ("cd OrthoPipe/$all_taxa; blastx -num_threads $CPU -evalue .1 -max_target_seqs 50 -db /home/$PROT -query unique_seqs.list.orthologs.$all_taxa -out out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; blastxparser.pl out.blastx_$all_taxa");
@@ -130,7 +128,7 @@ system ("cd OrthoPipe/$all_taxa; iterativefasta2phylip.pl");
 system ("cd OrthoPipe/$all_taxa; iterativepaml.pl");
 system ("cd OrthoPipe/$all_taxa; find *.dS -print | xargs cat > ksvaluescodeml$all_taxa");
 system ("cd OrthoPipe/$all_taxa; find *.dN -print | xargs cat > kavaluescodeml$all_taxa");
-system ("cd OrthoPipe/$all_taxa; blastn -task dc-megablast -num_threads $CPU -evalue .01 -db /bin/ath.fasta -query unique_seqs.list.orthologs.$all_taxa -out out.ath_vs_$all_taxa "); 
+system ("cd OrthoPipe/$all_taxa; blastn -task dc-megablast -num_threads $CPU -evalue .01 -db /bin/ath.fasta -query unique_seqs.list.orthologs.$all_taxa -out out.ath_vs_$all_taxa ");
 system ("cd OrthoPipe/$all_taxa; blastxparser.pl out.ath_vs_$all_taxa ");
 system ("cd OrthoPipe/$all_taxa; delete_extra_infoblastx.pl blastxparsed.out.ath_vs_$all_taxa ");
 system ("cd OrthoPipe/$all_taxa; tabs.pl clean.blastxparsed.out.ath_vs_$all_taxa");
@@ -141,7 +139,7 @@ system ("cp OrthoPipe/$all_taxa/codeml_output$all_taxa OrthoPipe/$all_taxa/Outpu
 		#Save all data and programs in a tar file, if you really want to...
 		#system ("tar -czvf $all_taxa.tgz Programs/");
 		#system ("mv $all_taxa.tgz Data/$all_taxa");
-		
+
 		#Remove all intermediate files generated
 		print "\n\tDeleting intermediate files!\n\n";
 		system ("rm OrthoPipe/$all_taxa/dna_names");
@@ -183,11 +181,7 @@ system ("cp OrthoPipe/$all_taxa/codeml_output$all_taxa OrthoPipe/$all_taxa/Outpu
 		system ("rm OrthoPipe/$all_taxa/rst*");
 		system ("rm OrthoPipe/$all_taxa/rub");
 	}
-	}
-	else{
-		sleep(60);
-		redo LOOP1;
-		
-	}
+
+
 
 }
