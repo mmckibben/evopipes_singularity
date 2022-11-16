@@ -31,7 +31,6 @@ LOOP1: while (<NAME>) {
         my $times = $lineArr[@lineArr-1];
         my @timeArr = split /,/, $times;
         my $load = $timeArr[0] + $CPU;
-	print $load," is the current load plus new CPU request\n\n";
 
 
 		print "Starting pipeline for $taxon!\n\n";
