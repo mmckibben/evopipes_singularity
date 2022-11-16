@@ -18,3 +18,4 @@ RUN cd /bin && unzip Atha.zip && rm Atha.zip && mv Atha.fa ath.fasta && makeblas
 
 workdir /home/
 
+
