@@ -14,7 +14,7 @@
 use warnings;
 
 $NAME = "$ARGV[0]";
-$PROT = "$ARGV[1]";
+$PROT = "/home/$ARGV[1]";
 $CPU = "$ARGV[2]";
 open NAME or die "No file $NAME\n";
 
