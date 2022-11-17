@@ -41,7 +41,7 @@ LOOP1: while (<NAME>) {
 
 		#Clean sequence names, remove ones < 300bp, make blast database, dc-mega against itself
 		system ("cp $taxon DupPipe/$taxon");
-		system ("cp $PROT DupPipe/$PROT");
+		system ("cp $PROT DupPipe/$taxon/$PROT");
 		system ("cd DupPipe/$taxon/; makeblastdb -in $PROT -dbtype prot");
 		system ("cd DupPipe/$taxon/; unigene_name_indexer.pl $taxon");
 		system ("mv DupPipe/$taxon/indices* DupPipe/$taxon/Output/");
