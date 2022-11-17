@@ -12,7 +12,7 @@
 use warnings;
 
 $NAME = "$ARGV[0]";
-$PROT = /home/"$ARGV[1]";
+$PROT = "/home/$ARGV[1]";
 $CPU = "$ARGV[2]";
 
 
