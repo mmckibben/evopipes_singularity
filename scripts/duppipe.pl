@@ -12,11 +12,13 @@
 use warnings;
 
 $NAME = "$ARGV[0]";
-$PROT = "$ARGV[1]";
+$PROT = "/home/$ARGV[1]";
 $CPU = "$ARGV[2]";
 
 
 open NAME or die "No file $NAME\n";
+
+system ("makeblastdb -in $PROT -dbtype prot");
 
 LOOP1: while (<NAME>) {
 	chomp $_;
@@ -41,8 +43,6 @@ LOOP1: while (<NAME>) {
 
 		#Clean sequence names, remove ones < 300bp, make blast database, dc-mega against itself
 		system ("cp $taxon DupPipe/$taxon");
-		system ("cp $PROT DupPipe/$taxon/$PROT");
-		system ("cd DupPipe/$taxon/; makeblastdb -in $PROT -dbtype prot");
 		system ("cd DupPipe/$taxon/; unigene_name_indexer.pl $taxon");
 		system ("mv DupPipe/$taxon/indices* DupPipe/$taxon/Output/");
 		print "running clcleaner\n\n";
@@ -178,8 +178,5 @@ LOOP1: while (<NAME>) {
 			system ("rm DupPipe/$taxon/codeml.ctl");
 			system ("rm DupPipe/$taxon/rst*");
 			system ("rm DupPipe/$taxon/rub");
-			system ("rm DupPipe/$taxon/$PROT*");
-
 
 }
-
