@@ -178,6 +178,8 @@ LOOP1: while (<NAME>) {
 			system ("rm DupPipe/$taxon/codeml.ctl");
 			system ("rm DupPipe/$taxon/rst*");
 			system ("rm DupPipe/$taxon/rub");
+			system ("rm DupPipe/$taxon/$PROT*");
+
 
 }
 
