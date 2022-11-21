@@ -14,11 +14,14 @@
 use warnings;
 
 $NAME = "$ARGV[0]";
-$PROT = "/home/$ARGV[1]";
+$PROT = "$ARGV[1]";
 $CPU = "$ARGV[2]";
 open NAME or die "No file $NAME\n";
 
-system ("makeblastdb -in $PROT -dbtype prot");
+use Cwd 'abs_path';
+my $abs_path = abs_path($PROT);
+
+system ("makeblastdb -in $abs_path -dbtype prot");
 
 
 LOOP1: while (<NAME>) {
@@ -109,7 +112,7 @@ system ("cd OrthoPipe/$all_taxa; multiple_orthologs_stringent.pl @taxa > ortholo
 system ("cd OrthoPipe/$all_taxa; list_ort.pl orthologs.$all_taxa $taxa_num");
 system ("cd OrthoPipe/$all_taxa; fasta_from_list_ort.pl list.orthologs.$all_taxa @taxa");
 system ("cd OrthoPipe/$all_taxa; makeblastdb -in unique_seqs.list.orthologs.$all_taxa -dbtype nucl");
-system ("cd OrthoPipe/$all_taxa; blastx -num_threads $CPU -evalue .1 -max_target_seqs 50 -db $PROT -query unique_seqs.list.orthologs.$all_taxa -out out.blastx_$all_taxa");
+system ("cd OrthoPipe/$all_taxa; blastx -num_threads $CPU -evalue .1 -max_target_seqs 50 -db $abs_path -query unique_seqs.list.orthologs.$all_taxa -out out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; blastxparser.pl out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; delete_extra_infoblastx.pl blastxparsed.out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; unique_hits_by_column.pl clean.blastxparsed.out.blastx_$all_taxa");
@@ -118,7 +121,7 @@ system ("cd OrthoPipe/$all_taxa; delete_extra_infogenewise.pl unique_col0.clean.
 system ("cd OrthoPipe/$all_taxa; dna_id_list.pl clean.unique_col0.clean.blastxparsed.out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; prot_id_list.pl clean.unique_col0.clean.blastxparsed.out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; dna_fasta_ort.pl dna_ids0.clean.unique_col0.clean.blastxparsed.out.blastx_$all_taxa @taxa");
-system ("cd OrthoPipe/$all_taxa; prot_fasta2.pl prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$all_taxa $PROT");
+system ("cd OrthoPipe/$all_taxa; prot_fasta2.pl prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$all_taxa $abs_path");
 system ("cd OrthoPipe/$all_taxa; namelist.pl unique_col0.clean.blastxparsed.out.blastx_$all_taxa");
 system ("cd OrthoPipe/$all_taxa; iterativegenewise_orthologs.pl prot_fasta.prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$all_taxa dna_fasta.dna_ids0.clean.unique_col0.clean.blastxparsed.out.blastx_$all_taxa $all_taxa");
 system ("cd OrthoPipe/$all_taxa; iterativemuscle2.pl orthologs.$all_taxa genewise_prots$all_taxa.fasta");
