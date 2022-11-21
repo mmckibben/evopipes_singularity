@@ -16,6 +16,8 @@ $PROT = "$ARGV[1]";
 $CPU = "$ARGV[2]";
 open NAME or die "No file $NAME\n";
 
+use Cwd 'abs_path';
+my $abs_path = abs_path($PROT);
 
 system ("makeblastdb -in $abs_path -dbtype prot");
 
