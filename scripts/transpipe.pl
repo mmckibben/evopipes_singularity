@@ -12,11 +12,12 @@
 use warnings;
 
 $NAME = "$ARGV[0]";
-$PROT = "/home/$ARGV[1]";
+$PROT = "$ARGV[1]";
 $CPU = "$ARGV[2]";
 open NAME or die "No file $NAME\n";
 
-system ("makeblastdb -in $PROT -dbtype prot");
+
+system ("makeblastdb -in $abs_path -dbtype prot");
 
 LOOP1: while (<NAME>) {
         chomp $_;
@@ -47,7 +48,7 @@ LOOP1: while (<NAME>) {
 		system ("cd Translated/$taxon/; min_fasta_length.pl no_cl.$taxon 300"); # output is: no_cl.$taxon.minlength$number.  Keeps only sequences longer than 300bp. 
 
 		print "\n\nBlasting against Proteins\n\n";
-		system ("cd Translated/$taxon/; blastx -num_threads $CPU -evalue 0.01 -max_target_seqs 50 -db $PROT -query no_cl.$taxon.minlength300 -out out.blastx_$taxon"); # blasts your sequences against the user supplied protein sequences
+		system ("cd Translated/$taxon/; blastx -num_threads $CPU -evalue 0.01 -max_target_seqs 50 -db $abs_path -query no_cl.$taxon.minlength300 -out out.blastx_$taxon"); # blasts your sequences against the user supplied protein sequences
 
 		#Parse duplicates (keep best hits), clean parsed file, keep unique sequences, remove duplicates from list
 		system ("cd Translated/$taxon/; blastxparser.pl out.blastx_$taxon"); # output is blastxparsed.out.blastx_$taxon
@@ -61,7 +62,7 @@ LOOP1: while (<NAME>) {
 		system ("cd Translated/$taxon/; dna_id_list.pl clean.unique_col0.clean.blastxparsed.out.blastx_$taxon"); #output is dna_ids0.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
 		system ("cd Translated/$taxon/; prot_id_list.pl clean.unique_col0.clean.blastxparsed.out.blastx_$taxon"); #output is prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
 		system ("cd Translated/$taxon/; dna_fasta.pl dna_ids0.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon no_cl.$taxon.minlength300"); #output is dna_fasta.dna_ids0.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
-		system ("cd Translated/$taxon/; prot_fasta2.pl prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon $PROT"); #output is prot_fasta.prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
+		system ("cd Translated/$taxon/; prot_fasta2.pl prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon $abs_path"); #output is prot_fasta.prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
 
         #Make list of gene names
         print "\n\n\tMaking list of gene names\n";
