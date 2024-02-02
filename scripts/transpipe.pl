@@ -19,8 +19,6 @@ open NAME or die "No file $NAME\n";
 use Cwd 'abs_path';
 my $abs_path = abs_path($PROT);
 
-system ("makeblastdb -in $abs_path -dbtype prot");
-
 LOOP1: while (<NAME>) {
         chomp $_;
         $taxon = $_;
@@ -59,21 +57,21 @@ LOOP1: while (<NAME>) {
 		system ("cd Translated/$taxon/; unique_hits_by_column.pl clean.blastxparsed.out.blastx_$taxon"); #output is unique_col0.clean.blastxparsed.out.blastx_$taxon
 		system ("cd Translated/$taxon/; tabs.pl unique_col0.clean.blastxparsed.out.blastx_$taxon"); #output is tab.unique_col0.clean.blastxparsed.out.blastx_$taxon
 
-        #Make DNA and protein ID lists, then fasta files for DNA and protein sequences, for all genes, in the same order
-        print "\n\n\tMaking DNA and protein ID lists\n\n";
+	        #Make DNA and protein ID lists, then fasta files for DNA and protein sequences, for all genes, in the same order
+	        print "\n\n\tMaking DNA and protein ID lists\n\n";
 		system ("cd Translated/$taxon/; delete_extra_infogenewise.pl unique_col0.clean.blastxparsed.out.blastx_$taxon"); #output is clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
 		system ("cd Translated/$taxon/; dna_id_list.pl clean.unique_col0.clean.blastxparsed.out.blastx_$taxon"); #output is dna_ids0.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
 		system ("cd Translated/$taxon/; prot_id_list.pl clean.unique_col0.clean.blastxparsed.out.blastx_$taxon"); #output is prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
 		system ("cd Translated/$taxon/; dna_fasta.pl dna_ids0.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon no_cl.$taxon.minlength300"); #output is dna_fasta.dna_ids0.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
 		system ("cd Translated/$taxon/; prot_fasta2.pl prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon $abs_path"); #output is prot_fasta.prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon
 
-        #Make list of gene names
-        print "\n\n\tMaking list of gene names\n";
+	        #Make list of gene names
+	        print "\n\n\tMaking list of gene names\n";
 		system ("cd Translated/$taxon/; namelist.pl unique_col0.clean.blastxparsed.out.blastx_$taxon"); #output is dna_names
 
 		#Genewise - get DNA and protein sequences for predicted proteins
-        print "\n\n\tRunning Genewise\n\n";
-        print "\n\n\t\tNOTE!!! YOU WILL ALWAYS GET A \"FATAL ERROR\" ON THE FIRST ONE HERE!!\n\n";
+	        print "\n\n\tRunning Genewise\n\n";
+	        print "\n\n\t\tNOTE!!! YOU WILL ALWAYS GET A \"FATAL ERROR\" ON THE FIRST ONE HERE!!\n\n";
 		system ("cd Translated/$taxon/; iterativegenewise.pl prot_fasta.prot_ids1.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon dna_fasta.dna_ids0.clean.unique_col0.clean.blastxparsed.out.blastx_$taxon");
 		system ("cp Translated/$taxon/genewise_dnas.fasta Translated/$taxon/Output/$taxon.fna");
 		system ("cp Translated/$taxon/genewise_prots.fasta Translated/$taxon/Output/$taxon.faa");
@@ -83,15 +81,15 @@ LOOP1: while (<NAME>) {
 		print "\n\n\t\tIf there is only one error above this point, you're done now!\n\n\n\n";
 
 		# REMOVE INTERMEDIATE FILES
-		system ("rm Translated/$taxon/dna_names");
-		system ("rm Translated/$taxon/dirtycontig");
+		system ("cd Translated/$taxon/; rm dna_names");
+		system ("cd Translated/$taxon/; rm dirtycontig");
 		system ("cd Translated/$taxon/; echo *.fasta | xargs rm");
-		system ("rm Translated/$taxon/genewiseout");
-		system ("rm Translated/$taxon/nostopcontig");
-		system ("rm Translated/$taxon/nucseq");
-		system ("rm Translated/$taxon/protseq");
-		system ("rm Translated/$taxon/*.blastx_$taxon");
-		system ("rm Translated/$taxon/no_cl.*");
+		system ("cd Translated/$taxon/; rm genewiseout");
+		system ("cd Translated/$taxon/; rm nostopcontig");
+		system ("cd Translated/$taxon/; rm nucseq");
+		system ("cd Translated/$taxon/; rm protseq");
+		system ("cd Translated/$taxon/; rm *.blastx_$taxon");
+		system ("cd Translated/$taxon/; rm no_cl.*");
 	
 }
 
