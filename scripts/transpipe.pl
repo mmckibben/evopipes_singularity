@@ -38,8 +38,8 @@ LOOP1: while (<NAME>) {
 		system ("mkdir Translated/$taxon"); # inside that folder, make separate folders for each taxon
 		system ("mkdir Translated/$taxon/Output"); # makes Data folder inside taxon folder
 		system ("cp $taxon Translated/$taxon"); # now all of the analyses will run inside a separate folder for each taxon
-		system ("cp $abs_path DupPipe/$taxon");
-  		system ("cd Translated/$taxon/; makeblastdb -in  $PROT -dbtype prot"); 
+		system ("cp $abs_path Translated/$taxon");
+		system ("cd Translated/$taxon/; makeblastdb -in  $PROT -dbtype prot");
    		system ("cd Translated/$taxon/; unigene_name_indexer.pl $taxon");
 		system ("mv Translated/$taxon/indices* Translated/$taxon/Output/");
 
@@ -82,16 +82,16 @@ LOOP1: while (<NAME>) {
 		print "\n\n\t\tIf there is only one error above this point, you're done now!\n\n\n\n";
 
 		# REMOVE INTERMEDIATE FILES
-		system ("cd Translated/$taxon/; rm dna_names");
-		system ("cd Translated/$taxon/; rm dirtycontig");
-		system ("cd Translated/$taxon/; echo *.fasta | xargs rm");
-		system ("cd Translated/$taxon/; rm genewiseout");
-		system ("cd Translated/$taxon/; rm nostopcontig");
-		system ("cd Translated/$taxon/; rm nucseq");
-		system ("cd Translated/$taxon/; rm protseq");
-		system ("cd Translated/$taxon/; rm *.blastx_$taxon");
-		system ("cd Translated/$taxon/; rm no_cl.*");
-		system ("cd Translated/$taxon/; rm $PROT*");  
+		# system ("cd Translated/$taxon/; rm dna_names");
+		# system ("cd Translated/$taxon/; rm dirtycontig");
+		# system ("cd Translated/$taxon/; echo *.fasta | xargs rm");
+		# system ("cd Translated/$taxon/; rm genewiseout");
+		# system ("cd Translated/$taxon/; rm nostopcontig");
+		# system ("cd Translated/$taxon/; rm nucseq");
+		# system ("cd Translated/$taxon/; rm protseq");
+		# system ("cd Translated/$taxon/; rm *.blastx_$taxon");
+		# system ("cd Translated/$taxon/; rm no_cl.*");
+		# system ("cd Translated/$taxon/; rm $PROT*");  
 	
 }
 
