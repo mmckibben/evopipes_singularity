@@ -90,6 +90,7 @@ LOOP1: while (<NAME>) {
 		system ("cd Translated/$taxon/; rm protseq");
 		system ("cd Translated/$taxon/; rm *.blastx_$taxon");
 		system ("cd Translated/$taxon/; rm no_cl.*");
+		system ("cd Translated/$taxon/; rm $PROT*");  
 	
 }
 
