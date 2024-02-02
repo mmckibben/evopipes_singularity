@@ -40,7 +40,8 @@ LOOP1: while (<NAME>) {
 		system ("mkdir Translated/$taxon"); # inside that folder, make separate folders for each taxon
 		system ("mkdir Translated/$taxon/Output"); # makes Data folder inside taxon folder
 		system ("cp $taxon Translated/$taxon"); # now all of the analyses will run inside a separate folder for each taxon
-		system ("cd Translated/$taxon/; unigene_name_indexer.pl $taxon");
+		system ("cp $abs_path DupPipe/$taxon");
+  		system ("cd Translated/$taxon/; makeblastdb -in  $PROT -dbtype prot ; unigene_name_indexer.pl $taxon");
 		system ("mv Translated/$taxon/indices* Translated/$taxon/Output/");
 
 
