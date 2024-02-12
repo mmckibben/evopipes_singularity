@@ -79,8 +79,8 @@ foreach (@compare){
 
 foreach $taxon (@taxa){  #format databases for blast
 	system ("cp $taxon.unigenes OrthoPipe/$all_taxa");
- 	system ("cp $abs_path OrthoPipe/$all_taxa")
-  	system ("cd OrthoPipe/$all_taxa ; makeblastdb -in $PROT -dbtype prot")
+ 	system ("cp $abs_path OrthoPipe/$all_taxa");
+  	system ("cd OrthoPipe/$all_taxa ; makeblastdb -in $PROT -dbtype prot");
 
 	system ("cd OrthoPipe/$all_taxa/; unigene_name_indexer.pl $taxon.unigenes");
 	system ("mv OrthoPipe/$all_taxa/indices* OrthoPipe/$all_taxa/Output/");
